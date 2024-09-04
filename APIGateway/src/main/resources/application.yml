@@ -1,0 +1,75 @@
+spring:
+ cloud:
+   gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: '*'
+            allowedMethods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            allowedHeaders: '*'
+            maxAge: 30  
+            
+      routes:
+       - id: VendorService
+         uri: lb://VENDORSERVICE
+         predicates:
+           - Path=/vendor/**
+         filters:
+           - AuthenticationFilter
+
+       - id: OrderPlacementService
+         uri: lb://ORDERPLACEMENTSERVICE
+         predicates:
+           - Path=/orders/**
+         filters:
+           - AuthenticationFilter
+
+       - id: CustomerService
+         uri: lb://CUSTOMERSERVICE
+         predicates:
+           - Path=/customers/**
+         filters:
+#          - AuthenticationFilter
+
+       - id: AuthService
+         uri: lb://AUTHSERVICE
+         predicates:
+           - Path=/auth/**
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    use-root-path: true
+    urls:
+      - name: customer-service
+        url: customers/v3/api_docs
+
+
+
+
+application:
+  name: APIGATEWAY
+   
+server:
+  port: 8080
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+  main:
+    web-application-type: reactive
+
