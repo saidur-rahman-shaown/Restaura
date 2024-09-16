@@ -15,12 +15,10 @@ spring:
   data:
     jdbc:
       dialect: postgresql
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
+
 
 server:
-  port: 8080
+  port: 8081
 
 eureka:
   instance:
@@ -32,3 +30,8 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+springdoc:
+  swagger-ui:
+    path: /orders/swagger-ui.html
+  api-docs:
+    path: /orders/v3/api_docs
