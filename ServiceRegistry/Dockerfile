@@ -9,7 +9,8 @@ COPY pom.xml .
 COPY src src
 
 # Build the application
-RUN sudo ./mvnw package -DskipTests
+RUN chmod +x mvnw
+RUN ./mvnw package -DskipTests
 
 # Runtime Stage
 FROM openjdk:17-oracle

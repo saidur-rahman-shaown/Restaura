@@ -9,6 +9,7 @@ COPY pom.xml .
 COPY src src
 
 # Build the application
+RUN chmod +x mvnw
 RUN ./mvnw package -DskipTests
 
 # Runtime Stage
